@@ -26,5 +26,16 @@ services:
             DATABASE_URL: postgres://postgres:password@db:5432/shortenerdb
             PORT: 4000
 
+    ui:
+        build:
+            context: ./ui
+            dockerfile: Dockerfile
+        restart: always
+        depends_on:
+            - api
+        ports:
+            - 3000:80
+        environment:
+            VITE_API_URL: http://api:4000
 volumes:
     pgdata:
